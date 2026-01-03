@@ -1,0 +1,15 @@
+{
+  "name": "chatup",
+  "version": "1.0.0",
+  "description": "chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mirek",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
