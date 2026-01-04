@@ -6,7 +6,7 @@ wss.on("connection", (ws) => {
   console.log("Client connected");
 
   ws.on("message", (message) => {
-    console.log("TO STRING: " + JSON.stringify(message))
+    console.log("MESSAGE RECEIVED: " + message)
     ws.send("Hello from server " + message.toString());
 
     // Broadcast to ALL clients (including sender if you want)

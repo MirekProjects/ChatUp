@@ -24,7 +24,8 @@ socket.addEventListener("open", (event) => {
 
 document.getElementById("send").onclick = function(){
     var userMessage = document.getElementById("chatbox-message-field").value;
-    socket.send({"clientId": clientId, "userMessage": userMessage})
+    console.log(userMessage)
+    socket.send(JSON.stringify({"clientId": clientId, "userMessage": userMessage}))
     displayMessage({"clientId": clientId, "userMessage": userMessage}
     )
 };
