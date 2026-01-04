@@ -32,13 +32,18 @@ document.getElementById("send").onclick = function(){
 
 // Listen for messages
 socket.addEventListener("message", (event) => {
-  console.log("Message from server ", event.data);
-  displayMessage(clientId + " says: " + event.data)
+  //console.log("Message from server ", event.data);
+  if(JSON.parse(event.data).clientId == clientId) {
+    console.log("client ID se shoduje")
+    displayMessage(clientId + " says: " + event.data)
+  } else {
+    console.log("client ID se neshoduje")
+    displayMessage(clientId + " says: " + event.data)
+  }
 });
 
 
 function displayMessage(userMessage) {
-
   const messageDiv = document.createElement("div");
   messageDiv.textContent = userMessage;   
   messageDiv.classList.add("message");
