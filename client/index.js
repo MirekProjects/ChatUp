@@ -30,6 +30,12 @@ document.getElementById("send").onclick = function(){
     )
 };
 
+addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      document.getElementById("send").click()
+    }
+})
+
 // Listen for messages
 socket.addEventListener("message", (event) => {
   //console.log("Message from server ", event.data);
