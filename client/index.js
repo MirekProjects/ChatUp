@@ -44,7 +44,7 @@ socket.addEventListener("message", (event) => {
   } else {
     console.log("client ID se neshoduje")
     const incomingMessage = JSON.parse(event.data)
-    displayMessage(clientId + " says: " + incomingMessage.userMessage)
+    displayMessage(incomingMessage.clientId + " says: " + incomingMessage.userMessage)
   }
 });
 
