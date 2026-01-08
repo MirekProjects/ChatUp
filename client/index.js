@@ -19,7 +19,7 @@ const clientId = createClientId()
 const socket = new WebSocket("ws://localhost:8080");
 // Connection opened
 socket.addEventListener("open", (event) => {
-  socket.send("User " + clientId + " has joined the channel.");
+  socket.send(JSON.stringify({"clientId": clientId, "connection": true}));
 });
 
 document.getElementById("send").onclick = function(){
@@ -37,7 +37,12 @@ addEventListener("keydown", function (event) {
 
 // Listen for messages
 socket.addEventListener("message", (event) => {
-  //console.log("Message from server ", event.data);
+  console.log("Message from server ", event.data);
+
+  if(JSON.parse(event.data).connection == true) {
+    displayMessage(JSON.parse(event.data).clientId + " connected to the chatroom")
+  }
+
   if(JSON.parse(event.data).clientId == clientId) {
     console.log("client ID se shoduje")
     //displayMessage(clientId + " says: " + event.data)
