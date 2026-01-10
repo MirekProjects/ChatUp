@@ -41,9 +41,7 @@ socket.addEventListener("message", (event) => {
 
   if(JSON.parse(event.data).connection == true) {
     displayMessage(JSON.parse(event.data).clientId + " connected to the chatroom")
-  }
-
-  if(JSON.parse(event.data).clientId == clientId) {
+  } else if (JSON.parse(event.data).clientId == clientId) {
     console.log("client ID se shoduje")
     //displayMessage(clientId + " says: " + event.data)
   } else {
