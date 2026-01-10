@@ -44,6 +44,7 @@ socket.addEventListener("message", (event) => {
     displayMessage(JSON.parse(event.data).clientId + " connected to the chatroom")
   } else if (JSON.parse(event.data).clientId == clientId) {
     console.log("client ID se shoduje")
+    console.log(document.getElementById("chatbox-message-field").value = "")
     //displayMessage(clientId + " says: " + event.data)
   } else {
     console.log("client ID se neshoduje")
