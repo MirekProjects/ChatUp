@@ -41,7 +41,6 @@ const sendMessage = () => {
   if (userMessage == "") {
     return
   }
-  console.log("xDDDD")
   socket.send(JSON.stringify({ "clientId": clientId, "userMessage": userMessage }))
   displayMessage(clientId + " says: " + userMessage)
 }
@@ -55,13 +54,13 @@ socket.addEventListener("message", (event) => {
   } else if (incomingMessage.clientId == clientId && incomingMessage.userMessage) {
     // matching Ids
     chatboxMessageField.value = ""
+    displayActiveTyping(incomingMessage)
   } else {
     // not matching Ids
-    if (incomingMessage.typing || !incomingMessage.typing) {
-      console.log("User " + incomingMessage.clientId + "is typing...")
-      return
+    displayActiveTyping(incomingMessage)
+    if (incomingMessage.userMessage){
+      displayMessage(incomingMessage.clientId + " says: " + incomingMessage.userMessage)
     }
-    displayMessage(incomingMessage.clientId + " says: " + incomingMessage.userMessage)
   }
 });
 
@@ -72,7 +71,18 @@ const displayMessage = (userMessage) => {
   document.getElementById("chatbox-text").appendChild(messageDiv);
 }
 
-
+const displayActiveTyping = (incomingMessage) => {
+  const typingElement = document.getElementById("typing-users")
+  if (incomingMessage.typing) {
+      console.log("User " + incomingMessage.clientId + "is typing...")
+      typingElement.style.display = "inline-block";
+      return
+    } else if (incomingMessage.typing == false) {
+      console.log("User " + incomingMessage.clientId + "is no longer typing...")
+      typingElement.style.display = "none";
+      return
+    }
+}
 
 let typingTimeout;
 let typingActive = false;
@@ -89,6 +99,6 @@ chatboxMessageField.addEventListener("input", () => {
     typingActive = false;
     socket.send(JSON.stringify({ "clientId": clientId, "typing": false})
   );
-  }, 5000);
+  }, 1000);
 });
 
