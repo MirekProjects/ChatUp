@@ -24,7 +24,6 @@ socket.addEventListener("open", (event) => {
 
 document.getElementById("send").onclick = function(){
     var userMessage = document.getElementById("chatbox-message-field").value;
-    console.log(userMessage)
     socket.send(JSON.stringify({"clientId": clientId, "userMessage": userMessage}))
     displayMessage(clientId + " says: " + userMessage)
 };
@@ -38,16 +37,13 @@ addEventListener("keydown", function (event) {
 
 // Listen for messages
 socket.addEventListener("message", (event) => {
-  console.log("Message from server ", event.data);
-
   if(JSON.parse(event.data).connection == true) {
     displayMessage(JSON.parse(event.data).clientId + " connected to the chatroom")
   } else if (JSON.parse(event.data).clientId == clientId) {
-    console.log("client ID se shoduje")
-    console.log(document.getElementById("chatbox-message-field").value = "")
-    //displayMessage(clientId + " says: " + event.data)
+    // matching Ids
+    document.getElementById("chatbox-message-field").value = ""
   } else {
-    console.log("client ID se neshoduje")
+    // not matching Ids
     const incomingMessage = JSON.parse(event.data)
     displayMessage(incomingMessage.clientId + " says: " + incomingMessage.userMessage)
   }
@@ -59,5 +55,4 @@ function displayMessage(userMessage) {
   messageDiv.textContent = userMessage;   
   messageDiv.classList.add("message");
   document.getElementById("chatbox-text").appendChild(messageDiv);
-  console.log(messageDiv)
 }
