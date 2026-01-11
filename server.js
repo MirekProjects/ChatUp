@@ -6,10 +6,9 @@ wss.on("connection", (ws) => {
   console.log("Client connected");
 
   ws.on("message", (message) => {
-    console.log("MESSAGE RECEIVED: " + message)
-    //ws.send("Hello from server " + message.toString());
+    console.log("Message received: " + message)
 
-    // Broadcast to ALL clients (including sender if you want)
+    // Broadcast to ALL clients
     wss.clients.forEach((client) => {
       if (client.readyState === 1) { // 1 = OPEN
         client.send(message.toString());

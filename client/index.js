@@ -23,17 +23,24 @@ socket.addEventListener("open", (event) => {
 });
 
 document.getElementById("send").onclick = function(){
-    var userMessage = document.getElementById("chatbox-message-field").value;
-    socket.send(JSON.stringify({"clientId": clientId, "userMessage": userMessage}))
-    displayMessage(clientId + " says: " + userMessage)
+    sendMessage()
 };
 
 addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault()
-      document.getElementById("send").click()
+      sendMessage()
     }
 })
+
+const sendMessage = () => {
+  var userMessage = document.getElementById("chatbox-message-field").value;
+  if(userMessage == "") {
+    return
+  } 
+  socket.send(JSON.stringify({"clientId": clientId, "userMessage": userMessage}))
+  displayMessage(clientId + " says: " + userMessage)
+}
 
 // Listen for messages
 socket.addEventListener("message", (event) => {
